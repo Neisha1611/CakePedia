@@ -5,19 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'CakePedia') — Ensiklopedia Resep Kue</title>
 
-    {{-- Bootstrap 5 CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    {{-- Bootstrap Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-
-    {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* =============================================
-           CAKEPEDIA — DESIGN TOKENS
-           ============================================= */
         :root {
             --cp-pink:        #F2A7B5;
             --cp-pink-light:  #FADADD;
@@ -33,14 +25,10 @@
             --cp-border:      #EDD9C0;
             --cp-shadow:      rgba(122,82,48,0.12);
             --cp-shadow-md:   rgba(122,82,48,0.18);
-
             --m-rounded-xxxl: 32px;
             --m-rounded-full: 100px;
         }
 
-        /* =============================================
-           BASE STYLES
-           ============================================= */
         *, *::before, *::after { box-sizing: border-box; }
 
         body {
@@ -53,160 +41,36 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
+        main { flex: 1; display: flex; flex-direction: column; }
 
-        h1, h2, h3, h4, h5 {
-            font-family: 'Playfair Display', serif;
-            color: var(--cp-brown);
-        }
-
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; color: var(--cp-brown); }
         a { color: var(--cp-pink-dark); text-decoration: none; }
         a:hover { color: var(--cp-brown); }
 
-        /* =============================================
-           NAVBAR
-           ============================================= */
-        .navbar-cakepedia {
-            background-color: var(--cp-white);
-            border-bottom: 2px solid var(--cp-border);
-            padding: 0.9rem 0;
-            box-shadow: 0 2px 12px var(--cp-shadow);
-        }
+        .navbar-cakepedia { background-color: var(--cp-white); border-bottom: 2px solid var(--cp-border); padding: 0.9rem 0; box-shadow: 0 2px 12px var(--cp-shadow); }
+        .navbar-brand-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { width: 42px; height: 42px; background: linear-gradient(135deg, var(--cp-pink), var(--cp-beige)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 2px 8px var(--cp-shadow); }
+        .brand-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--cp-brown); line-height: 1; }
+        .brand-sub { font-family: 'Lato', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--cp-muted); letter-spacing: 0.12em; text-transform: uppercase; }
 
-        .navbar-brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
+        .nav-link-cp { font-family: 'Lato', sans-serif; font-weight: 400; font-size: 0.9rem; color: var(--cp-brown) !important; padding: 0.4rem 1rem !important; border-radius: 20px; transition: background 0.2s, color 0.2s; }
+        .nav-link-cp:hover, .nav-link-cp.active { background-color: var(--cp-pink-light); color: var(--cp-brown) !important; }
 
-        .brand-icon {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, var(--cp-pink), var(--cp-beige));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 8px var(--cp-shadow);
-        }
+        .btn-nav-add { background: linear-gradient(135deg, var(--cp-pink), var(--cp-pink-dark)); color: #fff !important; border: none; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 0.88rem; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px rgba(217,127,143,0.3); }
+        .btn-nav-add:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(217,127,143,0.45); }
 
-        .brand-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--cp-brown);
-            line-height: 1;
-        }
+        .m-display { font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+        .m-body { font-family: 'Montserrat', sans-serif; font-size: 16px; letter-spacing: -0.16px; line-height: 1.5; color: var(--cp-muted); }
 
-        .brand-sub {
-            font-family: 'Lato', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 300;
-            color: var(--cp-muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
+        .card-meta-auth { border-radius: var(--m-rounded-xxxl); background-color: var(--cp-white); border: 1.5px solid var(--cp-border) !important; box-shadow: 0 10px 30px var(--cp-shadow); }
 
-        .nav-link-cp {
-            font-family: 'Lato', sans-serif;
-            font-weight: 400;
-            font-size: 0.9rem;
-            color: var(--cp-brown) !important;
-            padding: 0.4rem 1rem !important;
-            border-radius: 20px;
-            transition: background 0.2s, color 0.2s;
-        }
+        .btn-meta-primary { background: linear-gradient(135deg, var(--cp-pink), var(--cp-pink-dark)); color: #fff !important; border-radius: var(--m-rounded-full); padding: 14px 30px; font-weight: 700; font-size: 14px; font-family: 'Montserrat', sans-serif; border: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 14px rgba(217,127,143,0.3); }
+        .btn-meta-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(217,127,143,0.45); }
 
-        .nav-link-cp:hover,
-        .nav-link-cp.active {
-            background-color: var(--cp-pink-light);
-            color: var(--cp-brown) !important;
-        }
-
-        .btn-nav-add {
-            background: linear-gradient(135deg, var(--cp-pink), var(--cp-pink-dark));
-            color: #fff !important;
-            border: none;
-            border-radius: 20px;
-            padding: 0.4rem 1.2rem;
-            font-size: 0.88rem;
-            font-weight: 700;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(217,127,143,0.3);
-        }
-
-        .btn-nav-add:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(217,127,143,0.45);
-        }
-
-        /* =============================================
-           AUTH & META STYLE
-           ============================================= */
-        .m-display {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-        .m-body {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            letter-spacing: -0.16px;
-            line-height: 1.5;
-            color: var(--cp-muted);
-        }
-
-        .card-meta-auth {
-            border-radius: var(--m-rounded-xxxl);
-            background-color: var(--cp-white);
-            border: 1.5px solid var(--cp-border) !important;
-            box-shadow: 0 10px 30px var(--cp-shadow);
-        }
-
-        .btn-meta-primary {
-            background: linear-gradient(135deg, var(--cp-pink), var(--cp-pink-dark));
-            color: #fff !important;
-            border-radius: var(--m-rounded-full);
-            padding: 14px 30px;
-            font-weight: 700;
-            font-size: 14px;
-            font-family: 'Montserrat', sans-serif;
-            border: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 14px rgba(217,127,143,0.3);
-        }
-        .btn-meta-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(217,127,143,0.45);
-        }
-
-        .form-meta {
-            border: 1.5px solid var(--cp-border);
-            border-radius: 12px;
-            padding: 12px 16px;
-            height: 48px;
-            font-size: 15px;
-            background-color: #fff;
-            color: var(--cp-text);
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .form-meta:focus {
-            border-color: var(--cp-pink);
-            box-shadow: 0 0 0 0.2rem rgba(242,167,181,0.25);
-            outline: none;
-        }
+        .form-meta { border: 1.5px solid var(--cp-border); border-radius: 12px; padding: 12px 16px; height: 48px; font-size: 15px; background-color: #fff; color: var(--cp-text); transition: border-color 0.2s, box-shadow 0.2s; }
+        .form-meta:focus { border-color: var(--cp-pink); box-shadow: 0 0 0 0.2rem rgba(242,167,181,0.25); outline: none; }
         .form-meta::placeholder { color: #c4b9b6; }
 
-        /* =============================================
-           FOOTER, BADGES, CARD RESEP, BUTTONS
-           ============================================= */
         .footer-cp { background: linear-gradient(135deg, var(--cp-beige), var(--cp-pink-light)); border-top: 2px solid var(--cp-border); padding: 2.5rem 0 1.5rem; margin-top: auto; }
         .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cp-brown); }
         .footer-desc { font-size: 0.85rem; color: var(--cp-muted); max-width: 260px; }
@@ -229,7 +93,8 @@
         .btn-cp-outline:hover { background: var(--cp-beige); border-color: var(--cp-pink); color: var(--cp-brown); }
         .btn-cp-danger { background: transparent; color: #C0392B; border: 1.5px solid #E5A09A; border-radius: 25px; padding: 0.55rem 1.5rem; font-weight: 400; font-size: 0.9rem; transition: background 0.2s; }
         .btn-cp-danger:hover { background: #FDECEA; color: #922B21; }
-        .btn-eye.btn-eye { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--cp-muted); cursor: pointer; padding: 0; font-size: 1rem; line-height: 1; }
+
+        .btn-eye { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--cp-muted); cursor: pointer; padding: 0; font-size: 1rem; line-height: 1; }
         .btn-eye:hover { color: var(--cp-brown); }
 
         .form-control-cp, .form-select-cp { border: 1.5px solid var(--cp-border); border-radius: 12px; padding: 0.65rem 1rem; font-family: 'Lato', sans-serif; background-color: #fff; color: var(--cp-text); transition: border-color 0.2s, box-shadow 0.2s; }
@@ -339,6 +204,13 @@
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm"
                                 style="border-radius: 16px; border: 1.5px solid var(--cp-border) !important;">
 
+                                {{-- Profil Saya — semua role, selalu paling atas --}}
+                                <li>
+                                    <a class="dropdown-item py-2 text-dark" href="{{ route('profile.edit') }}">
+                                        <i class="bi bi-person-gear me-2" style="color:var(--cp-pink-dark);"></i>Profil Saya
+                                    </a>
+                                </li>
+
                                 {{-- Koleksi Saya — hanya member --}}
                                 @if(auth()->user()->role !== 'admin')
                                 <li>
@@ -356,13 +228,6 @@
                                     </a>
                                 </li>
                                 @endif
-
-                                {{-- Ubah Profil — semua role --}}
-                                <li>
-                                    <a class="dropdown-item py-2 text-dark" href="{{ route('profile.edit') }}">
-                                        <i class="bi bi-person-gear me-2" style="color:var(--cp-pink-dark);"></i>Ubah Profil
-                                    </a>
-                                </li>
 
                                 <li><hr class="dropdown-divider" style="border-color: var(--cp-border);"></li>
 
@@ -428,10 +293,8 @@
         </div>
     </footer>
 
-    {{-- Bootstrap 5 JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    {{-- Auto dismiss flash messages --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const alerts = document.querySelectorAll('[data-bs-dismiss="alert"]');

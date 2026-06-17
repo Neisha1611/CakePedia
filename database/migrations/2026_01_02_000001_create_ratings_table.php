@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
             $table->integer('score');
-            $table->unique(['user_id', 'recipe_id']); // ← pindah ke sini, setelah kedua kolom
+            $table->unique(['user_id', 'recipe_id']); 
             $table->timestamps();
         });
     }

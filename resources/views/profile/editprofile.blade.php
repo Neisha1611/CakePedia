@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Ubah Profil')
+@section('title', 'Profil Saya')
 
 @section('content')
 
@@ -13,11 +13,11 @@
                         <i class="bi bi-house-heart me-1"></i>Beranda
                     </a>
                 </li>
-                <li class="breadcrumb-item active" style="color:var(--cp-muted);">Ubah Profil</li>
+                <li class="breadcrumb-item active" style="color:var(--cp-muted);">Profil Saya</li>
             </ol>
         </nav>
         <h1 class="page-hero-title" style="font-size:1.9rem;">
-            <i class="bi bi-person-gear me-2" style="color:var(--cp-pink-dark);"></i>Ubah Profil
+            <i class="bi bi-person-gear me-2" style="color:var(--cp-pink-dark);"></i>Profil Saya
         </h1>
         <p class="page-hero-sub">Perbarui nama, email, atau password akunmu.</p>
     </div>

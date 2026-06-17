@@ -32,7 +32,6 @@
 
             {{-- ===== LEFT: Image + meta ===== --}}
             <div class="col-lg-5">
-                {{-- Gambar --}}
                 @if ($recipe->image_url)
                     <img src="{{ $recipe->image_url }}"
                          alt="{{ $recipe->title }}"
@@ -42,7 +41,7 @@
                     <div class="detail-img-placeholder mb-3">🎂</div>
                 @endif
 
-                {{-- Tombol Bookmark — HANYA untuk pengunjung (bukan admin) --}}
+                {{-- Tombol Bookmark — HANYA untuk member --}}
                 @if(auth()->user()->role !== 'admin')
                     <form action="{{ route('bookmarks.toggle') }}" method="POST" class="mb-4">
                         @csrf
@@ -66,9 +65,7 @@
                     </h6>
 
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
-                            🏷️
-                        </div>
+                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">🏷️</div>
                         <div>
                             <div style="font-size:0.75rem; color:var(--cp-muted);">Kategori</div>
                             <span class="{{ $recipe->categoryBadgeClass() }}">{{ $recipe->category }}</span>
@@ -76,50 +73,36 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
-                            📋
-                        </div>
+                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">📋</div>
                         <div>
                             <div style="font-size:0.75rem; color:var(--cp-muted);">Jumlah Bahan</div>
-                            <div style="font-weight:700; color:var(--cp-brown);">
-                                {{ count($recipe->ingredientLines()) }} bahan
-                            </div>
+                            <div style="font-weight:700; color:var(--cp-brown);">{{ count($recipe->ingredientLines()) }} bahan</div>
                         </div>
                     </div>
 
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
-                            📝
-                        </div>
+                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">📝</div>
                         <div>
                             <div style="font-size:0.75rem; color:var(--cp-muted);">Langkah Membuat</div>
-                            <div style="font-weight:700; color:var(--cp-brown);">
-                                {{ count($recipe->instructionLines()) }} langkah
-                            </div>
+                            <div style="font-weight:700; color:var(--cp-brown);">{{ count($recipe->instructionLines()) }} langkah</div>
                         </div>
                     </div>
 
                     <div class="d-flex align-items-center gap-2">
-                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
-                            🕐
-                        </div>
+                        <div style="width:36px; height:36px; background:var(--cp-beige); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">🕐</div>
                         <div>
                             <div style="font-size:0.75rem; color:var(--cp-muted);">Ditambahkan</div>
-                            <div style="font-weight:700; color:var(--cp-brown);">
-                                {{ $recipe->created_at->locale('id')->isoFormat('D MMM YYYY') }}
-                            </div>
+                            <div style="font-weight:700; color:var(--cp-brown);">{{ $recipe->created_at->locale('id')->isoFormat('D MMM YYYY') }}</div>
                         </div>
                     </div>
 
                     {{-- Tombol Edit & Hapus — HANYA untuk Admin --}}
                     @if(auth()->user()->role === 'admin')
                         <div class="cp-divider"><span class="cp-divider-icon">✦</span></div>
-
                         <div class="d-flex flex-column gap-2">
                             <a href="{{ route('recipes.edit', $recipe) }}" class="btn-cp-outline text-center">
                                 <i class="bi bi-pencil-square me-2"></i>Edit Resep
                             </a>
-
                             <form action="{{ route('recipes.destroy', $recipe) }}" method="POST"
                                   onsubmit="return confirm('Yakin ingin menghapus resep &quot;{{ addslashes($recipe->title) }}&quot;? Tindakan ini tidak bisa dibatalkan.')">
                                 @csrf
@@ -136,15 +119,12 @@
             {{-- ===== RIGHT: Detail konten ===== --}}
             <div class="col-lg-7">
 
-                {{-- Judul --}}
-                <span class="{{ $recipe->categoryBadgeClass() }} mb-2 d-inline-block">
-                    {{ $recipe->category }}
-                </span>
+                <span class="{{ $recipe->categoryBadgeClass() }} mb-2 d-inline-block">{{ $recipe->category }}</span>
                 <h1 style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--cp-brown); line-height:1.2; margin-bottom:0.5rem;">
                     {{ $recipe->title }}
                 </h1>
 
-                {{-- Rating --}}
+                {{-- Rating rata-rata --}}
                 <div class="d-flex align-items-center mb-4">
                     <div style="color: #ffca28; font-size: 1.1rem;" class="me-2">
                         @php $finalRating = $recipe->averageRating(); @endphp
@@ -156,17 +136,15 @@
                             @endif
                         @endfor
                     </div>
-                    <span style="font-weight: 700; color: var(--cp-brown); font-size: 1.1rem;">{{ $finalRating }} / 5.0</span>
-                    <span style="color: var(--cp-muted); font-size: 0.9rem;" class="ms-2">({{ $recipe->ratings()->count() }} Penilaian)</span>
+                    <span style="font-weight:700; color:var(--cp-brown); font-size:1.1rem;">{{ $finalRating }} / 5.0</span>
+                    <span style="color:var(--cp-muted); font-size:0.9rem;" class="ms-2">({{ $recipe->ratings()->count() }} Penilaian)</span>
                 </div>
 
                 {{-- ===== BAHAN-BAHAN ===== --}}
                 <div class="cp-card mb-4">
                     <h3 style="font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.6rem;">
-                        <span style="font-size:1.4rem;">🧂</span>
-                        Bahan-Bahan
+                        <span style="font-size:1.4rem;">🧂</span> Bahan-Bahan
                     </h3>
-
                     <ul class="ingredient-list">
                         @foreach ($recipe->ingredientLines() as $ingredient)
                             @if (Str::startsWith($ingredient, '—') || Str::startsWith($ingredient, '--'))
@@ -183,14 +161,12 @@
                 {{-- ===== CARA MEMBUAT ===== --}}
                 <div class="cp-card mb-4">
                     <h3 style="font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.6rem;">
-                        <span style="font-size:1.4rem;">👩‍🍳</span>
-                        Cara Membuat
+                        <span style="font-size:1.4rem;">👩‍🍳</span> Cara Membuat
                     </h3>
-
                     <ol class="instruction-list">
                         @foreach ($recipe->instructionLines() as $step)
                             @if (Str::endsWith(rtrim($step), ':'))
-                                <li style="font-weight:700; color:var(--cp-brown); background:var(--cp-cream); border-radius:8px; padding:0.6rem 0.9rem; border-bottom:none; margin-bottom:0.3rem; counter-increment: none;"
+                                <li style="font-weight:700; color:var(--cp-brown); background:var(--cp-cream); border-radius:8px; padding:0.6rem 0.9rem; border-bottom:none; margin-bottom:0.3rem;"
                                     class="instruction-subheader">
                                     {{ $step }}
                                 </li>
@@ -201,7 +177,7 @@
                     </ol>
                 </div>
 
-                {{-- Form Rating + Komentar — HANYA untuk member --}}
+                {{-- ===== FORM RATING + KOMENTAR — hanya member ===== --}}
                 @if(auth()->user()->role !== 'admin')
                     <div class="cp-card mb-4" style="border: 2px dashed var(--cp-pink);">
                         <h3 style="font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.6rem;">
@@ -212,7 +188,6 @@
                             @csrf
                             <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
 
-                            {{-- Bintang --}}
                             <div class="d-flex gap-2 mb-3 flex-row-reverse justify-content-end">
                                 <input type="radio" name="score" value="5" id="s5" class="d-none" {{ $userRating && $userRating->score == 5 ? 'checked' : '' }}>
                                 <label for="s5" class="bi bi-star-fill rating-star-input"></label>
@@ -226,13 +201,12 @@
                                 <label for="s1" class="bi bi-star-fill rating-star-input"></label>
                             </div>
 
-                            {{-- Komentar --}}
                             <div class="mb-3">
                                 <textarea name="body"
-                                        class="form-control-cp w-100"
-                                        rows="3"
-                                        placeholder="Tulis komentarmu tentang resep ini... (opsional)"
-                                        maxlength="1000">{{ $userComment ? $userComment->body : '' }}</textarea>
+                                          class="form-control-cp w-100"
+                                          rows="3"
+                                          placeholder="Tulis komentarmu tentang resep ini..."
+                                          maxlength="1000">{{ $userComment ? $userComment->body : '' }}</textarea>
                             </div>
 
                             <button type="submit" class="btn-cp-outline px-4" style="border-radius:8px;">
@@ -242,7 +216,7 @@
                     </div>
                 @endif
 
-                {{-- ===== KOMENTAR ===== --}}
+                {{-- ===== DAFTAR KOMENTAR ===== --}}
                 <div class="cp-card mb-4">
                     <h3 style="font-size:1.1rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.6rem;">
                         <span style="font-size:1.4rem;">💬</span>
@@ -263,7 +237,18 @@
                                             <span class="comment-badge-admin">Admin</span>
                                         @endif
                                         @if($comment->from_rating)
-                                            <span class="comment-badge-rating">✦ dari penilaian</span>
+                                            @php
+                                                $commentRating = $comment->user->ratings()
+                                                    ->where('recipe_id', $recipe->id)
+                                                    ->first();
+                                            @endphp
+                                            @if($commentRating)
+                                                <span class="comment-stars">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <i class="bi bi-star-fill" style="font-size:0.7rem; color:{{ $i <= $commentRating->score ? '#F39C12' : '#ddd' }};"></i>
+                                                    @endfor
+                                                </span>
+                                            @endif
                                         @endif
                                         <span class="comment-time">{{ $comment->updated_at->locale('id')->diffForHumans() }}</span>
                                     </div>
@@ -273,9 +258,10 @@
                                                 onclick="toggleReplyForm('reply-{{ $comment->id }}')">
                                             <i class="bi bi-reply me-1"></i>Balas
                                         </button>
-                                        @if(auth()->id() === $comment->user_id || auth()->user()->role === 'admin')
+                                        {{-- Hapus hanya untuk admin --}}
+                                        @if(auth()->user()->role === 'admin')
                                             <form action="{{ route('comments.destroy', $comment) }}" method="POST"
-                                                onsubmit="return confirm('Hapus komentar ini?')">
+                                                  onsubmit="return confirm('Hapus komentar ini?')">
                                                 @csrf @method('DELETE')
                                                 <button type="submit" class="btn-comment-delete">
                                                     <i class="bi bi-trash3 me-1"></i>Hapus
@@ -292,7 +278,7 @@
                                             <input type="hidden" name="parent_id" value="{{ $comment->id }}">
                                             <div class="mb-2">
                                                 <textarea name="body" class="form-control-cp w-100" rows="2"
-                                                        placeholder="Tulis balasanmu..." maxlength="1000"></textarea>
+                                                          placeholder="Tulis balasanmu..." maxlength="1000"></textarea>
                                             </div>
                                             <div class="d-flex gap-2 justify-content-end">
                                                 <button type="button"
@@ -325,9 +311,10 @@
                                                             <span class="comment-time">{{ $reply->created_at->locale('id')->diffForHumans() }}</span>
                                                         </div>
                                                         <p class="comment-body mb-1">{{ $reply->body }}</p>
-                                                        @if(auth()->id() === $reply->user_id || auth()->user()->role === 'admin')
+                                                        {{-- Hapus balasan hanya untuk admin --}}
+                                                        @if(auth()->user()->role === 'admin')
                                                             <form action="{{ route('comments.destroy', $reply) }}" method="POST"
-                                                                onsubmit="return confirm('Hapus balasan ini?')">
+                                                                  onsubmit="return confirm('Hapus balasan ini?')">
                                                                 @csrf @method('DELETE')
                                                                 <button type="submit" class="btn-comment-delete">
                                                                     <i class="bi bi-trash3 me-1"></i>Hapus
@@ -364,105 +351,36 @@
 
 @push('styles')
 <style>
-    .instruction-subheader {
-        counter-increment: none !important;
-    }
-    .instruction-subheader::before {
-        content: '✦' !important;
-        background: var(--cp-beige-dark) !important;
-        font-size: 0.7rem !important;
-    }
+    .instruction-subheader { counter-increment: none !important; }
+    .instruction-subheader::before { content: '✦' !important; background: var(--cp-beige-dark) !important; font-size: 0.7rem !important; }
 
-    .rating-star-input { 
-        font-size: 2rem; 
-        color: #e4e4e4; 
-        cursor: pointer; 
-        transition: all 0.2s; 
-    }
-    .rating-star-input:hover, 
-    .rating-star-input:hover ~ .rating-star-input { 
-        color: #ffca28; 
-        transform: scale(1.15); 
-    }
-    input[type="radio"]:checked ~ label { 
-        color: #ffca28 !important; 
-    }
+    .rating-star-input { font-size: 2rem; color: #e4e4e4; cursor: pointer; transition: all 0.2s; }
+    .rating-star-input:hover,
+    .rating-star-input:hover ~ .rating-star-input { color: #ffca28; transform: scale(1.15); }
+    input[type="radio"]:checked ~ label { color: #ffca28 !important; }
 
-    .comment-item {
-    padding: 1rem 0;
-    border-bottom: 1px dashed var(--cp-border);
-    }
+    .comment-item { padding: 1rem 0; border-bottom: 1px dashed var(--cp-border); }
     .comment-item:last-child { border-bottom: none; }
-
-    .comment-avatar {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--cp-pink), var(--cp-pink-dark));
-        color: #fff;
-        font-weight: 700;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-    .comment-avatar-sm {
-        width: 30px;
-        height: 30px;
-        font-size: 0.75rem;
-    }
-    .comment-name {
-        font-weight: 700;
-        font-size: 0.88rem;
-        color: var(--cp-brown);
-    }
-    .comment-badge-admin {
-        background: var(--cp-pink-light);
-        color: var(--cp-pink-dark);
-        font-size: 0.7rem;
-        font-weight: 700;
-        padding: 0.1rem 0.5rem;
-        border-radius: 10px;
-    }
-    .comment-time {
-        font-size: 0.75rem;
-        color: var(--cp-muted);
-    }
-    .comment-body {
-        font-size: 0.9rem;
-        color: var(--cp-text);
-        margin-bottom: 0.5rem;
-        line-height: 1.6;
-    }
-    .btn-reply-toggle {
-        background: none;
-        border: none;
-        color: var(--cp-pink-dark);
-        font-size: 0.8rem;
-        font-weight: 700;
-        cursor: pointer;
-        padding: 0;
-    }
+    .comment-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--cp-pink), var(--cp-pink-dark)); color: #fff; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .comment-avatar-sm { width: 30px; height: 30px; font-size: 0.75rem; }
+    .comment-name { font-weight: 700; font-size: 0.88rem; color: var(--cp-brown); }
+    .comment-badge-admin { background: var(--cp-pink-light); color: var(--cp-pink-dark); font-size: 0.7rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 10px; }
+    .comment-stars { display: inline-flex; gap: 1px; align-items: center; }
+    .comment-time { font-size: 0.75rem; color: var(--cp-muted); }
+    .comment-body { font-size: 0.9rem; color: var(--cp-text); margin-bottom: 0.5rem; line-height: 1.6; }
+    .btn-reply-toggle { background: none; border: none; color: var(--cp-pink-dark); font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 0; }
     .btn-reply-toggle:hover { color: var(--cp-brown); }
-    .btn-comment-delete {
-        background: none;
-        border: none;
-        color: var(--cp-muted);
-        font-size: 0.78rem;
-        cursor: pointer;
-        padding: 0;
-    }
+    .btn-comment-delete { background: none; border: none; color: var(--cp-muted); font-size: 0.78rem; cursor: pointer; padding: 0; }
     .btn-comment-delete:hover { color: #C0392B; }
-    .replies-wrapper {
-        margin-top: 0.5rem;
-        padding-left: 1rem;
-        border-left: 2px solid var(--cp-border);
-    }
-    .comment-badge-rating {
-        font-size: 0.7rem;
-        color: var(--cp-muted);
-        font-style: italic;
-    }
+    .replies-wrapper { margin-top: 0.5rem; padding-left: 1rem; border-left: 2px solid var(--cp-border); }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+    function toggleReplyForm(id) {
+        const el = document.getElementById(id);
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
 @endpush

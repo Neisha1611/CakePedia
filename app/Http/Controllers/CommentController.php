@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -31,8 +30,8 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
-        // Hanya pemilik komentar atau admin yang bisa hapus
-        if (auth()->id() !== $comment->user_id && auth()->user()->role !== 'admin') {
+        // Hanya admin yang bisa hapus komentar
+        if (auth()->user()->role !== 'admin') {
             abort(403);
         }
 
