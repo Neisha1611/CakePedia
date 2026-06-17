@@ -10,8 +10,10 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
-            $table->integer('score'); // Nilai 1 sampai 5
+            $table->integer('score');
+            $table->unique(['user_id', 'recipe_id']); // ← pindah ke sini, setelah kedua kolom
             $table->timestamps();
         });
     }

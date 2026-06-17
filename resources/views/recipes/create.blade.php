@@ -50,7 +50,7 @@
                     {{-- ===== SECTION: Informasi Dasar ===== --}}
                     <div class="cp-card mb-4">
                         <h5 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">📋</span> Informasi Dasar
+                            <span style="font-size:1.3rem;">Informasi Dasar
                         </h5>
 
                         {{-- Judul --}}
@@ -87,7 +87,7 @@
                                     <option value="{{ $cat }}" {{ old('category') === $cat ? 'selected' : '' }}>
                                         @if ($cat === 'Pastry') 🥐
                                         @elseif ($cat === 'Cookies') 🍪
-                                        @else 🌿
+                                        @else 🍡
                                         @endif
                                         {{ $cat }}
                                     </option>
@@ -104,7 +104,7 @@
                     {{-- ===== SECTION: Gambar ===== --}}
                     <div class="cp-card mb-4">
                         <h5 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">🖼️</span> Gambar Resep
+                            <span style="font-size:1.3rem;"> Gambar Resep
                         </h5>
 
                         <div class="mb-2">
@@ -136,7 +136,7 @@
                     {{-- ===== SECTION: Bahan-Bahan ===== --}}
                     <div class="cp-card mb-4">
                         <h5 style="margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">🧂</span> Bahan-Bahan
+                            <span style="font-size:1.3rem;"> Bahan-Bahan
                             <span style="color:var(--cp-pink-dark);">*</span>
                         </h5>
                         <p class="form-hint mb-3">Tulis satu bahan per baris. Untuk sub-judul (misal: "— SELAI —"), awali dengan tanda "—".</p>
@@ -156,7 +156,7 @@
                     {{-- ===== SECTION: Cara Membuat ===== --}}
                     <div class="cp-card mb-4">
                         <h5 style="margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">👩‍🍳</span> Cara Membuat
+                            <span style="font-size:1.3rem;"> Cara Membuat
                             <span style="color:var(--cp-pink-dark);">*</span>
                         </h5>
                         <p class="form-hint mb-3">Tulis satu langkah per baris. Awali tiap langkah dengan nomor (misal: "1. ...") atau langsung tuliskan langkahnya.</p>
@@ -193,8 +193,8 @@
 @push('scripts')
 <script>
     // Preview gambar dari URL
-    const imageUrlInput = document.getElementById('image_url');
-    const imagePreview  = document.getElementById('imagePreview');
+    const imageUrlInput  = document.getElementById('image_url');
+    const imagePreview   = document.getElementById('imagePreview');
     const previewWrapper = document.getElementById('imagePreviewWrapper');
 
     function updatePreview() {
@@ -209,7 +209,7 @@
     }
 
     imageUrlInput.addEventListener('input', updatePreview);
-    updatePreview(); // on page load (for old value)
+    updatePreview();
 
     // Loading state on submit
     document.getElementById('recipeForm').addEventListener('submit', function () {

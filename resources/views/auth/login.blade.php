@@ -6,7 +6,7 @@
 <div class="container d-flex align-items-center justify-content-center" style="min-height: 85vh;">
     <div class="card card-meta-auth p-2" style="width: 100%; max-width: 440px;">
         <div class="card-body p-4 p-md-5">
-            
+
             <div class="text-center mb-4">
                 <div class="mb-2" style="font-size: 2.5rem;">🍰</div>
                 <h2 class="m-display fw-bold mb-1" style="color: var(--cp-brown); font-size: 28px;">CakePedia</h2>
@@ -21,7 +21,7 @@
 
             <form method="POST" action="{{ route('login') }}" autocomplete="off">
                 @csrf
-                
+
                 <div class="mb-3">
                     <label class="form-label fw-bold mb-2" style="font-size: 12px; color: var(--cp-brown-light); letter-spacing: 0.5px;">EMAIL ADDRESS</label>
                     <input type="email" name="email" class="form-control form-meta" placeholder="nama@email.com" value="{{ old('email') }}" required autofocus autocomplete="off">
@@ -29,18 +29,21 @@
 
                 <div class="mb-4">
                     <label class="form-label fw-bold mb-2" style="font-size: 12px; color: var(--cp-brown-light); letter-spacing: 0.5px;">PASSWORD</label>
-                    <input type="password" name="password" class="form-control form-meta" placeholder="Masukkan password" required autocomplete="new-password">
+                    <div class="position-relative">
+                        <input type="password" name="password" id="loginPassword" class="form-control form-meta" placeholder="Masukkan password" required autocomplete="new-password" style="padding-right: 3rem;">
+                        <button type="button" onclick="togglePassword('loginPassword', 'eyeLogin')" class="btn-eye">
+                            <i class="bi bi-eye" id="eyeLogin"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="d-grid mb-4">
-                    <button type="submit" class="btn btn-meta-primary py-3">
-                        Masuk
-                    </button>
+                    <button type="submit" class="btn btn-meta-primary py-3">Masuk</button>
                 </div>
 
                 <div class="text-center">
                     <p class="m-body mb-0" style="font-size: 14px;">
-                        Belum punya akun? 
+                        Belum punya akun?
                         <a href="{{ route('register') }}" class="fw-bold text-decoration-none" style="color: var(--cp-pink-dark);">Daftar di sini</a>
                     </p>
                 </div>
@@ -50,3 +53,19 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon  = document.getElementById(iconId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'bi bi-eye-slash';
+        } else {
+            input.type = 'password';
+            icon.className = 'bi bi-eye';
+        }
+    }
+</script>
+@endpush

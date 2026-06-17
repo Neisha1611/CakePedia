@@ -34,7 +34,6 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-7">
 
-                {{-- Validation errors summary --}}
                 @if ($errors->any())
                     <div class="alert-cp-error mb-4">
                         <div class="d-flex align-items-center gap-2 mb-2">
@@ -55,11 +54,8 @@
 
                     {{-- ===== SECTION: Informasi Dasar ===== --}}
                     <div class="cp-card mb-4">
-                        <h5 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">📋</span> Informasi Dasar
-                        </h5>
+                        <h5 style="margin-bottom:1.5rem;">Informasi Dasar</h5>
 
-                        {{-- Judul --}}
                         <div class="mb-4">
                             <label for="title" class="form-label-cp">
                                 Judul Resep <span style="color:var(--cp-pink-dark);">*</span>
@@ -77,7 +73,6 @@
                             @enderror
                         </div>
 
-                        {{-- Kategori --}}
                         <div class="mb-3">
                             <label for="category" class="form-label-cp">
                                 Kategori <span style="color:var(--cp-pink-dark);">*</span>
@@ -90,7 +85,7 @@
                                         {{ old('category', $recipe->category) === $cat ? 'selected' : '' }}>
                                         @if ($cat === 'Pastry') 🥐
                                         @elseif ($cat === 'Cookies') 🍪
-                                        @else 🌿
+                                        @else 🍡
                                         @endif
                                         {{ $cat }}
                                     </option>
@@ -106,9 +101,7 @@
 
                     {{-- ===== SECTION: Gambar ===== --}}
                     <div class="cp-card mb-4">
-                        <h5 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">🖼️</span> Gambar Resep
-                        </h5>
+                        <h5 style="margin-bottom:1.5rem;">Gambar Resep</h5>
 
                         <div class="mb-2">
                             <label for="image_url" class="form-label-cp">URL Gambar</label>
@@ -126,7 +119,6 @@
                             <p class="form-hint">Opsional. Biarkan kosong untuk menghapus gambar.</p>
                         </div>
 
-                        {{-- Preview gambar --}}
                         <div id="imagePreviewWrapper"
                              style="{{ old('image_url', $recipe->image_url) ? '' : 'display:none;' }} margin-top:1rem;">
                             <p class="form-hint mb-2">Preview:</p>
@@ -139,9 +131,8 @@
 
                     {{-- ===== SECTION: Bahan-Bahan ===== --}}
                     <div class="cp-card mb-4">
-                        <h5 style="margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">🧂</span> Bahan-Bahan
-                            <span style="color:var(--cp-pink-dark);">*</span>
+                        <h5 style="margin-bottom:0.4rem;">
+                            Bahan-Bahan <span style="color:var(--cp-pink-dark);">*</span>
                         </h5>
                         <p class="form-hint mb-3">Tulis satu bahan per baris.</p>
 
@@ -158,9 +149,8 @@
 
                     {{-- ===== SECTION: Cara Membuat ===== --}}
                     <div class="cp-card mb-4">
-                        <h5 style="margin-bottom:0.4rem; display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.3rem;">👩‍🍳</span> Cara Membuat
-                            <span style="color:var(--cp-pink-dark);">*</span>
+                        <h5 style="margin-bottom:0.4rem;">
+                            Cara Membuat <span style="color:var(--cp-pink-dark);">*</span>
                         </h5>
                         <p class="form-hint mb-3">Tulis satu langkah per baris.</p>
 
@@ -176,27 +166,27 @@
                     </div>
 
                     {{-- ===== ACTION BUTTONS ===== --}}
-                    <div class="d-flex gap-3 justify-content-between flex-wrap">
-                        <form action="{{ route('recipes.destroy', $recipe) }}" method="POST"
-                              onsubmit="return confirm('Yakin ingin menghapus resep ini secara permanen?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-cp-danger">
-                                <i class="bi bi-trash3 me-2"></i>Hapus Resep
-                            </button>
-                        </form>
-
-                        <div class="d-flex gap-3">
-                            <a href="{{ route('recipes.show', $recipe) }}" class="btn-cp-outline">
-                                <i class="bi bi-x-lg me-2"></i>Batal
-                            </a>
-                            <button type="submit" class="btn-cp-primary" id="updateBtn">
-                                <i class="bi bi-check2-circle me-2"></i>Simpan Perubahan
-                            </button>
-                        </div>
+                    <div class="d-flex gap-3 justify-content-end flex-wrap mb-3">
+                        <a href="{{ route('recipes.show', $recipe) }}" class="btn-cp-outline">
+                            <i class="bi bi-x-lg me-2"></i>Batal
+                        </a>
+                        <button type="submit" class="btn-cp-primary" id="updateBtn">
+                            <i class="bi bi-check2-circle me-2"></i>Simpan Perubahan
+                        </button>
                     </div>
 
                 </form>
+
+                {{-- Form hapus di LUAR form edit --}}
+                <form action="{{ route('recipes.destroy', $recipe) }}" method="POST"
+                      onsubmit="return confirm('Yakin ingin menghapus resep ini secara permanen?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-cp-danger">
+                        <i class="bi bi-trash3 me-2"></i>Hapus Resep
+                    </button>
+                </form>
+
             </div>
         </div>
     </div>
@@ -205,7 +195,6 @@
 
 @push('scripts')
 <script>
-    // Preview gambar dari URL
     const imageUrlInput  = document.getElementById('image_url');
     const imagePreview   = document.getElementById('imagePreview');
     const previewWrapper = document.getElementById('imagePreviewWrapper');
@@ -223,7 +212,6 @@
 
     imageUrlInput.addEventListener('input', updatePreview);
 
-    // Loading state on submit
     document.getElementById('editForm').addEventListener('submit', function () {
         const btn = document.getElementById('updateBtn');
         btn.disabled = true;

@@ -57,14 +57,27 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe): View
     {
-        // Resep lain dalam kategori yang sama (sidebar "Lihat Juga")
+        $recipe->load([
+            'comments' => function ($q) {
+                $q->whereNull('parent_id')->with('user', 'replies.user')->latest();
+            }
+        ]);
+
+        $userRating = $recipe->ratings()->where('user_id', auth()->id())->first();
+
+        $userComment = \App\Models\Comment::where('recipe_id', $recipe->id)
+            ->where('user_id', auth()->id())
+            ->whereNull('parent_id')
+            ->where('from_rating', true)
+            ->first();
+
         $related = Recipe::where('category', $recipe->category)
             ->where('id', '!=', $recipe->id)
             ->latest()
             ->take(3)
             ->get();
 
-        return view('recipes.show', compact('recipe', 'related'));
+        return view('recipes.show', compact('recipe', 'related', 'userRating', 'userComment'));
     }
 
     /**

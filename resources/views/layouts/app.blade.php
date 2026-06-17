@@ -11,7 +11,7 @@
     {{-- Bootstrap Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    {{-- Google Fonts: Playfair Display + Lato + Montserrat (Untuk gaya Meta) --}}
+    {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
@@ -19,22 +19,21 @@
            CAKEPEDIA — DESIGN TOKENS
            ============================================= */
         :root {
-            --cp-pink:        #F2A7B5;   
-            --cp-pink-light:  #FADADD;   
-            --cp-pink-dark:   #D97F8F;   
-            --cp-beige:       #F0E0C8;   
-            --cp-beige-dark:  #D9C4A5;   
-            --cp-white:       #FAF8F5;   
-            --cp-cream:       #FEF9F0;   
-            --cp-brown:       #7A5230;   
-            --cp-brown-light: #B5835A;   
-            --cp-text:        #3D2B1F;   
-            --cp-muted:       #9E7B65;   
-            --cp-border:      #EDD9C0;   
+            --cp-pink:        #F2A7B5;
+            --cp-pink-light:  #FADADD;
+            --cp-pink-dark:   #D97F8F;
+            --cp-beige:       #F0E0C8;
+            --cp-beige-dark:  #D9C4A5;
+            --cp-white:       #FAF8F5;
+            --cp-cream:       #FEF9F0;
+            --cp-brown:       #7A5230;
+            --cp-brown-light: #B5835A;
+            --cp-text:        #3D2B1F;
+            --cp-muted:       #9E7B65;
+            --cp-border:      #EDD9C0;
             --cp-shadow:      rgba(122,82,48,0.12);
             --cp-shadow-md:   rgba(122,82,48,0.18);
-            
-            /* Token Lengkungan ala Meta */
+
             --m-rounded-xxxl: 32px;
             --m-rounded-full: 100px;
         }
@@ -150,20 +149,20 @@
         /* =============================================
            AUTH & META STYLE
            ============================================= */
-        .m-display { 
+        .m-display {
             font-family: 'Montserrat', sans-serif;
-            font-weight: 700; 
-            letter-spacing: -0.02em; 
-            line-height: 1.2; 
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
         }
-        .m-body { 
+        .m-body {
             font-family: 'Montserrat', sans-serif;
-            font-size: 16px; 
-            letter-spacing: -0.16px; 
-            line-height: 1.5; 
-            color: var(--cp-muted); 
+            font-size: 16px;
+            letter-spacing: -0.16px;
+            line-height: 1.5;
+            color: var(--cp-muted);
         }
-        
+
         .card-meta-auth {
             border-radius: var(--m-rounded-xxxl);
             background-color: var(--cp-white);
@@ -183,7 +182,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 14px rgba(217,127,143,0.3);
         }
-        .btn-meta-primary:hover { 
+        .btn-meta-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(217,127,143,0.45);
         }
@@ -204,7 +203,7 @@
             outline: none;
         }
         .form-meta::placeholder { color: #c4b9b6; }
-           
+
         /* =============================================
            FOOTER, BADGES, CARD RESEP, BUTTONS
            ============================================= */
@@ -212,11 +211,11 @@
         .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cp-brown); }
         .footer-desc { font-size: 0.85rem; color: var(--cp-muted); max-width: 260px; }
         .footer-copy { font-size: 0.78rem; color: var(--cp-muted); }
-        
+
         .badge-pastry { background-color: #E8D5F5; color: #6A3D9A; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.05em; border-radius: 12px; padding: 0.3em 0.75em; }
         .badge-cookies { background-color: var(--cp-beige); color: var(--cp-brown); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.05em; border-radius: 12px; padding: 0.3em 0.75em; }
         .badge-traditional { background-color: #D4EDDA; color: #1A5C2E; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.05em; border-radius: 12px; padding: 0.3em 0.75em; }
-        
+
         .recipe-card { background: #fff; border: 1.5px solid var(--cp-border); border-radius: 20px; overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 2px 10px var(--cp-shadow); height: 100%; }
         .recipe-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px var(--cp-shadow-md); }
         .recipe-card-img { height: 200px; object-fit: cover; width: 100%; background-color: var(--cp-beige); }
@@ -230,6 +229,8 @@
         .btn-cp-outline:hover { background: var(--cp-beige); border-color: var(--cp-pink); color: var(--cp-brown); }
         .btn-cp-danger { background: transparent; color: #C0392B; border: 1.5px solid #E5A09A; border-radius: 25px; padding: 0.55rem 1.5rem; font-weight: 400; font-size: 0.9rem; transition: background 0.2s; }
         .btn-cp-danger:hover { background: #FDECEA; color: #922B21; }
+        .btn-eye.btn-eye { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--cp-muted); cursor: pointer; padding: 0; font-size: 1rem; line-height: 1; }
+        .btn-eye:hover { color: var(--cp-brown); }
 
         .form-control-cp, .form-select-cp { border: 1.5px solid var(--cp-border); border-radius: 12px; padding: 0.65rem 1rem; font-family: 'Lato', sans-serif; background-color: #fff; color: var(--cp-text); transition: border-color 0.2s, box-shadow 0.2s; }
         .form-control-cp:focus, .form-select-cp:focus { border-color: var(--cp-pink); box-shadow: 0 0 0 0.2rem rgba(242,167,181,0.25); outline: none; }
@@ -302,22 +303,25 @@
 
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav ms-auto align-items-center gap-1">
-                    {{-- Hanya tampilkan menu jika User sudah Login --}}
                     @auth
                         <li class="nav-item">
                             <a class="nav-link nav-link-cp {{ request()->routeIs('recipes.index') ? 'active' : '' }}"
                                 href="{{ route('recipes.index') }}">
-                                 <i class="bi bi-house-heart me-1"></i>Beranda
+                                <i class="bi bi-house-heart me-1"></i>Beranda
                             </a>
                         </li>
+
+                        {{-- What Can I Bake? HANYA untuk member --}}
+                        @if(auth()->user()->role !== 'admin')
                         <li class="nav-item">
                             <a class="nav-link nav-link-cp {{ request()->routeIs('what-can-i-bake') ? 'active' : '' }}"
                                 href="{{ route('what-can-i-bake') }}">
                                 <i class="bi bi-magic me-1"></i>What Can I Bake?
                             </a>
                         </li>
+                        @endif
 
-                        {{-- Tombol Tambah Resep HANYA untuk Admin --}}
+                        {{-- Tambah Resep HANYA untuk Admin --}}
                         @if(auth()->user()->role === 'admin')
                         <li class="nav-item ms-2 me-2">
                             <a class="nav-link-cp btn-nav-add" href="{{ route('recipes.create') }}">
@@ -326,18 +330,42 @@
                         </li>
                         @endif
 
-                        {{-- Dropdown Profil User --}}
+                        {{-- Dropdown Profil --}}
                         <li class="nav-item dropdown ms-2">
-                            <a class="nav-link dropdown-toggle fw-bold px-3 py-2" href="#" data-bs-toggle="dropdown" style="background-color: var(--cp-beige); color: var(--cp-brown); border-radius: 20px; font-size: 0.9rem;">
+                            <a class="nav-link dropdown-toggle fw-bold px-3 py-2" href="#" data-bs-toggle="dropdown"
+                               style="background-color: var(--cp-beige); color: var(--cp-brown); border-radius: 20px; font-size: 0.9rem;">
                                 Halo, {{ explode(' ', auth()->user()->name)[0] }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" style="border-radius: 16px; border: 1.5px solid var(--cp-border) !important;">
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm"
+                                style="border-radius: 16px; border: 1.5px solid var(--cp-border) !important;">
+
+                                {{-- Koleksi Saya — hanya member --}}
+                                @if(auth()->user()->role !== 'admin')
                                 <li>
                                     <a class="dropdown-item py-2 text-dark" href="{{ route('bookmarks.index') }}">
                                         <i class="bi bi-bookmark-heart text-danger me-2"></i>Koleksi Saya
                                     </a>
                                 </li>
+                                @endif
+
+                                {{-- Daftar Member — hanya admin --}}
+                                @if(auth()->user()->role === 'admin')
+                                <li>
+                                    <a class="dropdown-item py-2 text-dark" href="{{ route('admin.members') }}">
+                                        <i class="bi bi-people me-2" style="color:var(--cp-pink-dark);"></i>Daftar Member
+                                    </a>
+                                </li>
+                                @endif
+
+                                {{-- Ubah Profil — semua role --}}
+                                <li>
+                                    <a class="dropdown-item py-2 text-dark" href="{{ route('profile.edit') }}">
+                                        <i class="bi bi-person-gear me-2" style="color:var(--cp-pink-dark);"></i>Ubah Profil
+                                    </a>
+                                </li>
+
                                 <li><hr class="dropdown-divider" style="border-color: var(--cp-border);"></li>
+
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
@@ -391,6 +419,7 @@
                         hingga camilan tradisional Nusantara.
                     </p>
                 </div>
+                <div class="col-md-6 text-md-end">
                     <p class="footer-copy mb-0">
                         &copy; {{ date('Y') }} CakePedia
                     </p>
@@ -405,7 +434,6 @@
     {{-- Auto dismiss flash messages --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Auto dismiss alert setelah 4 detik
             const alerts = document.querySelectorAll('[data-bs-dismiss="alert"]');
             setTimeout(() => {
                 alerts.forEach(btn => {

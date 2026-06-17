@@ -94,4 +94,12 @@ class Recipe extends Model
     {
         return round($this->ratings()->avg('score'), 1) ?? 0;
     }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\Models\Comment::class)
+            ->whereNull('parent_id')
+            ->with('user', 'replies.user')
+            ->latest();
+    }
 }
